@@ -6,7 +6,7 @@ import CustomButton from '../../components/CustomButton'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
-function Register() {
+ export default function Register() {
   let [cred, setCred] = useState({})
   const router = useRouter()
 

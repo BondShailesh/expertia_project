@@ -29,7 +29,7 @@ function Login() {
   }
 
   const handleRegister = () => {
-    router.push('/user/register')
+    router.push('/user/register/')
   }
   return (
     <div className='flex justify-center h-[100vh]'>
