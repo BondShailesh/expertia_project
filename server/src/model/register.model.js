@@ -8,6 +8,7 @@ const registerSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "todo",
     }],
+    loggedIn : { type : Boolean, default : true }
 },{
   timestamps : true
 });

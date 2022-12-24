@@ -19,6 +19,33 @@ registerRoute.post("/login", async (req, res) => {
     }
 })
 
+//Veryfy token
+registerRoute.get("/verifytoken/", async (req, res) => {
+    const { token } = req.headers
+
+    try {
+        const detail = await register.tokenvarifucation({token})
+        const user = await registerModel.findOne({ email : detail.email })
+        res.status(201).send(user)
+    } catch (e) {
+        res.status(404).send(e.message)
+    }
+})
+
+registerRoute.patch("/logout", async(req,res)=> {
+
+    const { token } = req.headers
+
+    try{
+        const detail = await register.tokenvarifucation({token})
+        const user = await registerModel.findOneAndUpdate({ email : detail.email },  { $set : { loggedIn : false } })
+       res.send("Logout Succesfull")
+    }
+    catch(e){
+        res.status(404).send(e.message)
+    }
+})
+
 //Get user details by id
 registerRoute.get("/signup/:id", async (req, res) => {
     try {
