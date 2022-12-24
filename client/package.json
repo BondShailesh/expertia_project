@@ -6,10 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint" 
+    "lint": "next lint"
   },
   "dependencies": {
     "@next/font": "13.0.7",
+    "axios": "^1.2.1",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
     "next": "13.0.7",
