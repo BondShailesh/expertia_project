@@ -8,9 +8,11 @@ export default function Dashboard() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
-  const [name, setName] = useState("")
+  const [name, setName] = useState("");
+  const [todaydate, settodayDate] = useState('')
 
-  let [todoInput, setTodoInput] = useState({})
+  const [todoInput, setTodoInput] = useState({})
+
   //handling Input box
   const handleChange = (e) => {
     let { name, value } = e.target;
@@ -59,15 +61,14 @@ export default function Dashboard() {
       let x = await fetch("https://frail-blue-hippo.cyclic.app/logout", {
         method: "PATCH",
         headers: {
-          token: JSON.parse(token)
+          token: token
         }
       })
-
       router.push("/user/login")
       return
     }
     catch (e) {
-      console.log("error")
+      console.log("error", e)
     }
   }
 
@@ -87,14 +88,12 @@ export default function Dashboard() {
       })
         .then((r) => {
           if (!r.data.loggedIn) {
-            router.push("/user/register")
-            return
+            return router.push("/user/register")            
           }
           localStorage.setItem("userId", r.data._id)
           setName(r.data.userName)
-          getTodos(r.data._id)
-
           setLoading(false)
+          getTodos(r.data._id)
         })
     } catch (e) {
       setLoading(false)
@@ -102,9 +101,17 @@ export default function Dashboard() {
 
   }, [])
 
+  useEffect(() => {
+    let date = new Date()
+    date = date.toLocaleDateString();
+    settodayDate(date)
+
+  }, [])
+
   if (loading) {
     return <div>Loading....</div>
   }
+  
   return (
     <div >
       <div className='lg:w-[400px] lg:h-[540px] w-[329px] h-[550px]
@@ -118,7 +125,7 @@ export default function Dashboard() {
 
         <p className='leading-[24px] mt-[23px] mb-[23px]'>Good to see you here</p>
 
-        <p className='leading-[24px] font-bold mb-[20px]'>Tasks for <span>24Dec,2022:</span></p>
+        <p className='leading-[24px] font-bold mb-[20px]'>Tasks for <span>{todaydate}:</span></p>
 
         {data.map((el) => (
           <li key={el._id}> {el.todo}</li>

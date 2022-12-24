@@ -13,7 +13,7 @@ registerRoute.get("/signup", async (req, res) => {
 registerRoute.post("/login", async (req, res) => {
     try {
         const {status,token} = await register.login(req.body)
-        res.status(status).send(token)
+        res.status(201).send(token)
     } catch (e) {
         res.status(404).send(e.message)
     }

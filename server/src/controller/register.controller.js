@@ -21,7 +21,6 @@ const register = {
                 let token = jwt.sign({ ...creds }, "Experia123", { expiresIn: '30d' })
                 return { status: 201, token }
             } else {
-
                 return { status: 404, token: "NotFound" }
             }
         } catch (e) {

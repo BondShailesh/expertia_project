@@ -18,11 +18,13 @@ function Login() {
   }
 
   const handleClick = async () => {
+
     try {
       let data = await axios.post("https://frail-blue-hippo.cyclic.app/login", cred)
-      let token = JSON.stringify(data.data)
-      localStorage.setItem('token', token)
+      let token = (data.data)
+       localStorage.setItem('token', token)
       router.push('/')
+      console.log('dfsgd');
     } catch (e) {
       return alert("Wrong Credential")
     }
